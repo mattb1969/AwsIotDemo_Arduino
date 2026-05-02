@@ -18,9 +18,7 @@
 #define AWS_IOT_PUBLISH_TOPIC "arduino/outgoing"
 #define AWS_IOT_SUBSCRIBE_TOPIC "arduino/incoming"
 
-//MQTTClient client; // = MQTTClient(256);
-//WiFiSSLClient wifiClient;
-//BearSSLClient sslClient(wifiClient);            // Used for SSL/TLS connection, integrates with ECC508
+
 WiFiClient    wifiClient;                   // Used for the TCP socket connection
 BearSSLClient sslClient(wifiClient);        // Used for SSL/TLS connection, integrates with ECC508
 MqttClient    client(sslClient);
@@ -137,10 +135,11 @@ void publishMessage()
     //client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
 
     // send message, the Print interface can be used to set the message contents
-    client.beginMessage(AWS_IOT_PUBLISH_TOPIC);
-    client.print("hello ");
-    client.print(millis());
-    client.endMessage();
+    Serial.println("Debug Info");
+    Serial.println(client.beginMessage(AWS_IOT_PUBLISH_TOPIC));
+    Serial.println(client.print("hello "));
+    Serial.println(client.print(millis()));
+    Serial.println(client.endMessage());
 }
 
 bool connectAws()
